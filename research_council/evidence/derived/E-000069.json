@@ -1,0 +1,56 @@
+{
+  "id": "E-000069",
+  "evidence_type": "empirical_result",
+  "level": 2,
+  "study_id": "study_05_findex_crosscountry",
+  "claim": "The pre-registered moderation prediction of H-000500 is FALSIFIED. The interaction of digital-payment activity with LOWER 2019 credit-information coverage (anydigpayment x lowcov2019_z) is NEGATIVE and significant (b3 = -0.01975): the within-economy digital-payment / formal-borrowing association is SMALLER, not larger, where 2019 credit-bureau/registry coverage was lower. Robust to every pre-registered robustness branch and every Stage-3 adversarial attack with that sign.",
+  "source": "results/study_05_crosscountry/CODEX-S5-EXP-20260909-002/result.json (M2 b3); CODEX-S5-AUDIT-20260909-001/adversarial_checks.json; reproduced by results/stage4_repro/CLAUDE-S5R-20260910-001/comparison.csv",
+  "method": "survey-weighted LPM with economy fixed effects; anydigpayment + anydigpayment x lowcov2019_z + account_fin + account_fin x lowcov2019_z + primary controls",
+  "sample": "100,560 adults in 97 economies (2024 Global Findex); lowcov2019_z = one value per economy (2019 Doing Business max(bureau,registry) coverage, negative z-score)",
+  "statistical_test": "economy-clustered CR1 SE; wild-cluster bootstrap; M2b below-median contrast; M6.1/6.3/6.4/6.5/6.6/6.8/6.10; 7 leave-one-region-out; 97 leave-one-economy-out; sign-reversal algebra check",
+  "result": "b3 = -0.01974818 ; economy-clustered SE = 0.00474298 ; p = 6.84e-5 ; 95% CI [-0.02916, -0.01033] ; wild-cluster-bootstrap p = 0.001 ; M2b b3 = -0.03958 (p = 9.3e-5) ; leave-one-economy-out range [-0.02164, -0.01737] all negative (97/97) ; logit interaction AME = -0.0135, probit -0.0136 ; hypothesised sign was POSITIVE",
+  "reproducible": true,
+  "reproduction_path": {
+    "original_run": "CODEX-S5-EXP-20260909-002",
+    "independent_run": "CLAUDE-S5R-20260910-001",
+    "command": "python projects/study_05_findex_crosscountry/code/study_05_crosscountry/CLAUDE-S5R-20260910-001_reproduce.py",
+    "code_sha256": "2e7a43db81af2c9b6a276cc24054da662f0247e5cab7b36e1106a16a96bd760f",
+    "data_sha256": {
+      "findex": "ca307a0c3dfd54dc945a18fb03c58b014143bc21c90761f71fe304e6a2f90fce",
+      "credit_info_snapshot": "ef0c67f9c7d44b67939e088f0aab2e578f7ba0d7f2eeadc4093c0103cc1bd06c"
+    }
+  },
+  "hypothesis_ids": [
+    "H-000500"
+  ],
+  "hypothesis_path": "projects/study_05_findex_crosscountry/research_council/hypotheses/H-000500.json",
+  "dispute_ids": [],
+  "contract_ref": "projects/study_05_findex_crosscountry/papers/study_05/CLAIM_CONTRACT.md (C2 / the H-000500 test)",
+  "experiment_id": "EXP-S5-001",
+  "role": "counter_evidence_to_H-000500",
+  "verifications": [
+    {
+      "agent": "claude",
+      "outcome": "PASS",
+      "computational_reproducibility": "PASS",
+      "detail": "Independent cold-context re-implementation: M2 b3 reproduces to abs delta 3.4e-14; M2b, all M6 branches, all 7 leave-one-region-out, all 7 drop-one-control, account-holders-only, drop-zero-coverage, drop-lowest-quartile and sign-reversal all reproduce to abs delta < 1.5e-13; 97-fit leave-one-economy-out all negative. Non-material differences: M2c Wald statistic form (all variants reject H0); M6.2 non-linear AME magnitude ~11% (same negative sign).",
+      "independent_run_id": "CLAUDE-S5R-20260910-001",
+      "audit": "audit/CLAUDE_S5_STAGE4_INDEPENDENT_REPRODUCTION.md",
+      "timestamp": "2026-09-10T04:00:00Z"
+    }
+  ],
+  "challenges": [],
+  "verdicts": {
+    "computational_reproducibility": "PASS",
+    "statistical_validity": "PASS",
+    "identification_credibility": "CREDIBLE_WITH_LIMITATIONS",
+    "substantive_interpretation": "GROUNDED"
+  },
+  "verdict_notes": {
+    "identification_credibility": "The moderator is a non-random 2019 country characteristic five years before the outcome; economy fixed effects absorb its main effect but do not make the cross-level interaction causal. As a DESCRIPTIVE heterogeneity finding and as a falsification of the pre-registered prediction it is credible; the 5-year vintage mismatch and possible moderator misclassification are disclosed limitations.",
+    "substantive_interpretation": "GROUNDED: reported as 'the pre-registered prediction is rejected; the interaction is negative and robust', with no relabelling of the reverse pattern as confirmation and no mechanism claim (C3 and the informal-borrow placebo C4 both fail)."
+  },
+  "citable_as_evidence": true,
+  "registered_by": "claude",
+  "registered_at": "2026-09-10T04:00:00Z"
+}

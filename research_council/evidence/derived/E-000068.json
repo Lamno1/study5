@@ -1,0 +1,55 @@
+{
+  "id": "E-000068",
+  "evidence_type": "empirical_result",
+  "level": 2,
+  "study_id": "study_05_findex_crosscountry",
+  "claim": "Within economies where the 2024 Global Findex borrowing/digital-payment module was administered, making or receiving a digital payment is associated with a +3.6 percentage-point-higher probability of having borrowed from a formal financial institution in the past 12 months, conditional on account ownership, demographics and economy fixed effects. Descriptive within-economy association only; not causal.",
+  "source": "results/study_05_crosscountry/CODEX-S5-EXP-20260909-002/result.json (M1); reproduced by results/stage4_repro/CLAUDE-S5R-20260910-001/estimates.json",
+  "method": "survey-weighted linear probability model, economy fixed effects, w_equal weights",
+  "sample": "100,560 adults in 97 economies, 2024 Global Findex wave, complete primary covariates; 10,214 formal borrowers",
+  "statistical_test": "economy-clustered (CR1) standard error; Rademacher wild-cluster bootstrap (999)",
+  "result": "b1 = 0.03617476 ; economy-clustered SE = 0.00514285 ; p = 2.95e-10 ; 95% CI [0.02597, 0.04638] ; wild-cluster-bootstrap p = 0.001 ; N = 100560 ; G = 97",
+  "reproducible": true,
+  "reproduction_path": {
+    "original_run": "CODEX-S5-EXP-20260909-002",
+    "independent_run": "CLAUDE-S5R-20260910-001",
+    "command": "python projects/study_05_findex_crosscountry/code/study_05_crosscountry/CLAUDE-S5R-20260910-001_reproduce.py",
+    "code_sha256": "2e7a43db81af2c9b6a276cc24054da662f0247e5cab7b36e1106a16a96bd760f",
+    "data_sha256": {
+      "findex": "ca307a0c3dfd54dc945a18fb03c58b014143bc21c90761f71fe304e6a2f90fce",
+      "credit_info_snapshot": "ef0c67f9c7d44b67939e088f0aab2e578f7ba0d7f2eeadc4093c0103cc1bd06c"
+    }
+  },
+  "hypothesis_ids": [
+    "H-000500"
+  ],
+  "hypothesis_path": "projects/study_05_findex_crosscountry/research_council/hypotheses/H-000500.json",
+  "dispute_ids": [],
+  "contract_ref": "projects/study_05_findex_crosscountry/papers/study_05/CLAIM_CONTRACT.md (C1)",
+  "experiment_id": "EXP-S5-001",
+  "verifications": [
+    {
+      "agent": "claude",
+      "outcome": "PASS",
+      "computational_reproducibility": "PASS",
+      "detail": "Independent cold-context re-implementation (hand-rolled WLS + CR1, no Codex code read); M1 b1 reproduces to abs delta 3.5e-14; drop table and 100,560/97 frame reproduced step for step.",
+      "independent_run_id": "CLAUDE-S5R-20260910-001",
+      "audit": "audit/CLAUDE_S5_STAGE4_INDEPENDENT_REPRODUCTION.md",
+      "timestamp": "2026-09-10T04:00:00Z"
+    }
+  ],
+  "challenges": [],
+  "verdicts": {
+    "computational_reproducibility": "PASS",
+    "statistical_validity": "PASS",
+    "identification_credibility": "FLAWED",
+    "substantive_interpretation": "GROUNDED"
+  },
+  "verdict_notes": {
+    "identification_credibility": "FLAWED for any causal reading: single 2024 cross-section, no temporal ordering, digital-payment activity and formal borrowing mechanically linked through account ownership. Reported strictly as a conditional within-economy association; a causal reading is prohibited by the claim contract.",
+    "substantive_interpretation": "GROUNDED while wording stays 'associated with'."
+  },
+  "citable_as_evidence": true,
+  "registered_by": "claude",
+  "registered_at": "2026-09-10T04:00:00Z"
+}

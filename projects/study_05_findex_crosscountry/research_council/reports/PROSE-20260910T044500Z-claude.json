@@ -1,0 +1,88 @@
+{
+  "id": "PROSE-20260910T044500Z",
+  "study_id": "study_05_findex_crosscountry",
+  "document": "papers/study_05/MANUSCRIPT_DRAFT_v1.md",
+  "sections": [
+    "abstract",
+    "introduction",
+    "related_literature",
+    "data",
+    "empirical_strategy",
+    "results",
+    "vietnam",
+    "discussion",
+    "conclusion"
+  ],
+  "identification_credibility_verdict": "FLAWED for causal reading; CREDIBLE_WITH_LIMITATIONS as descriptive within-economy association / heterogeneity (per E-000068, E-000069)",
+  "verb_calibration": "All empirical sentences use 'is associated with', 'co-moves', 'the fitted slope', 'not supported', 'falsified'. No causal verb anywhere. Verified against CLAIM_CONTRACT.md prohibited list.",
+  "claim_evidence_map": [
+    {
+      "claim": "digital-payment activity ~ +3.617 pp formal borrowing (M1)",
+      "ledger_ref": "E-000068",
+      "verb": "is associated with",
+      "verb_justified_by": "identification_credibility=FLAWED-for-causal -> associational only"
+    },
+    {
+      "claim": "interaction with lower 2019 coverage = -1.975 pp per SD; H-000500 not supported, opposite sign",
+      "ledger_ref": "E-000069",
+      "verb": "not supported / weaker not stronger",
+      "verb_justified_by": "pre-registered decision rule not_supported branch"
+    },
+    {
+      "claim": "M2b -3.958 pp; M6 grid all negative; LORO/LOEO all negative; sign-reversal +1.975",
+      "ledger_ref": "E-000069",
+      "verb": "survives / robust",
+      "verb_justified_by": "reproduced CLAUDE-S5R-20260910-001"
+    },
+    {
+      "claim": "M3 make>receive; M3b receive interaction ~0; informal-borrow placebo +1.736 pp",
+      "ledger_ref": "E-000069",
+      "verb": "does not behave as predicted / fails",
+      "verb_justified_by": "secondary results, BH-controlled"
+    },
+    {
+      "claim": "Vietnam fitted M2 slope +5.07 pp at its 2019 coverage",
+      "ledger_ref": "E-000069",
+      "verb": "the fitted slope is",
+      "verb_justified_by": "explicitly labelled descriptive positioning, no Vietnam effect claim"
+    }
+  ],
+  "absolutes_removed": "none present in draft; banned-absolute scan clean (no prove/definitively/dramatic/revolutionary/first-to-show)",
+  "novelty_language": {
+    "status": "OK",
+    "phrasing_used": "individual-level descriptive analogue and external-population check of an established firm-level pattern (Galilea, Farazi & Mare 2026)",
+    "supported_by": "CODEX-S5-STAGE0-001 section 8 (novelty = limited/moderate; this exact positioning permitted; 'first'/'novel'/'fills a gap' prohibited)"
+  },
+  "magnitude_statements": [
+    "3.617 pp with 95% CI 2.597-4.638 and 'about 40% of the ~9.2% sample mean'",
+    "-1.975 pp per SD with 95% CI -2.916 to -1.033",
+    "-3.958 pp below-median contrast",
+    "Vietnam fitted slope +5.07 pp CI 3.89-6.25"
+  ],
+  "citations_pending_verification": [
+    {
+      "cite": "Galilea, Farazi & Mare (2026)",
+      "action": "confirm author order/title/outlet/year before submission"
+    },
+    {
+      "cite": "Demirguc-Kunt, Klapper, Singer & Ansar",
+      "action": "update to Global Findex 2025 report if that is the correct edition"
+    },
+    {
+      "cite": "Berg, Burg, Gombovic & Puri (2020) RFS 33(7) 2845-2897",
+      "action": "confirm volume/pages"
+    },
+    {
+      "cite": "Bazarbash & Beaton (2020) IMF WP 20/150",
+      "action": "confirm"
+    }
+  ],
+  "outstanding": [
+    "data-table-consistency-audit not yet run",
+    "peer-reviewer-simulation-q1 not yet run",
+    "latex-manuscript-typesetting not yet run",
+    "literature-review formal LIT-* record not yet filed for Study 5"
+  ],
+  "registered_by": "claude",
+  "registered_at": "2026-09-10T04:45:00Z"
+}

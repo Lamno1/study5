@@ -1,0 +1,81 @@
+{
+  "id": "TYPESET-20260910T193000Z",
+  "study_id": "study_05_findex_crosscountry",
+  "manuscript_source": "papers/study_05/MANUSCRIPT_DRAFT_v2.md (Codex-gate-passed, CODEX-S5-MANUSCRIPT-GATE-20260910-001, PASS_TO_TYPESETTING_WITH_LIMITATIONS)",
+  "output_tree": "papers/study_05/manuscript/",
+  "document_class": {
+    "class": "article",
+    "options": "11pt, a4paper, 1in margins, onehalfspacing",
+    "source": "GENERIC_NOT_VERIFIED -- no official UEH student-competition template was on file. The body (body.tex) carries no class-specific commands; switching to the UEH .cls is a preamble-only change in main.tex.",
+    "status": "AWAITING_UEH_TEMPLATE_FROM_OWNER"
+  },
+  "packages": [
+    {"name": "fontenc/inputenc", "reason": "T1 + UTF-8 source"},
+    {"name": "geometry", "reason": "neutral 1in margins; replace under the UEH template"},
+    {"name": "amsmath", "reason": "aligned display equations for M1 and M2"},
+    {"name": "booktabs", "reason": "rules in the generated tables (no vertical lines)"},
+    {"name": "threeparttable", "reason": "table notes bound to each table (estimator, clustering, stars, definitions)"},
+    {"name": "graphicx", "reason": "figures F1-F3 if added later"},
+    {"name": "setspace", "reason": "1.5 line spacing for a readable review copy"},
+    {"name": "natbib", "reason": "author-year citations (apalike)"},
+    {"name": "hyperref", "reason": "cross-reference and DOI links; loaded last"}
+  ],
+  "removed_packages": [
+    {"name": "siunitx", "reason": "S-columns rejected the pre-formatted p-value strings ('$<$0.0001') and parenthesised SEs; the builder now emits plain right-aligned columns."},
+    {"name": "threeparttable", "reason": "it ties the notes block to the natural (pre-scaled) table width, which overflowed the text block; replaced by an adjustbox around the tabular (shrinks only when needed) plus a full-width minipage for the notes -- done in build_tables.py::write()."}
+  ],
+  "added_packages_layout": [
+    {"name": "adjustbox", "reason": "max-width wrapper: shrinks an over-wide table to the text block, leaves narrow tables untouched"},
+    {"name": "\\sloppy + \\Urlmuskip", "reason": "absorb residual sub-3pt overfulls into interword stretch; long URLs/paths moved to \\url{} so they break"}
+  ],
+  "pipeline": [
+    {"table": "Table 1 (tab:sample)", "results_file": "results/stage2/CODEX-S5-TABLES-20260909-001/T1_drop_table.csv", "builder": "code/study_05_crosscountry/tables/build_tables.py::build_sample", "tex_fragment": "papers/study_05/manuscript/tables/tab_sample.tex"},
+    {"table": "Table 2 (tab:descriptives)", "results_file": "results/stage2/CODEX-S5-TABLES-20260909-001/T2_descriptives.csv", "builder": "build_tables.py::build_descriptives", "tex_fragment": "tables/tab_descriptives.tex"},
+    {"table": "Table 3 (tab:primary, M1/M2 full)", "results_file": "results/stage2/CODEX-S5-EXP-20260909-002/result.json (models.M1, models.M2)", "builder": "build_tables.py::build_primary", "tex_fragment": "tables/tab_primary.tex"},
+    {"table": "Table 4 (tab:robustness, beta3 across specs)", "results_file": "results/stage2/CODEX-S5-TABLES-20260909-001/T6_robustness.csv; results/stage3/CODEX-S5-AUDIT-20260909-001/adversarial_checks.json; results/stage3/CODEX-S5-DB-INTEGRITY-20260910-001/result.json; results/stage3/CODEX-S5-CTRLXMOD-REPRO-20260910-001/result.json; result.json robustness block", "builder": "build_tables.py::build_robustness", "tex_fragment": "tables/tab_robustness.tex"},
+    {"table": "Table 5 (tab:mechanism, M3a/M3b)", "results_file": "results/stage2/CODEX-S5-TABLES-20260909-001/T4_mechanism.csv (+ result.json models)", "builder": "build_tables.py::build_mechanism", "tex_fragment": "tables/tab_mechanism.tex"},
+    {"table": "Table 6 (tab:secondary, M4 + BH q)", "results_file": "results/stage2/CODEX-S5-TABLES-20260909-001/T5_secondary_placebo.csv; result.json bh_family", "builder": "build_tables.py::build_secondary", "tex_fragment": "tables/tab_secondary.tex"},
+    {"table": "in-text statistics", "results_file": "result.json (models, primary, vietnam, descriptives); stage3 CTRLXMOD-REPRO, CTRLXMOD-WR2, DB-INTEGRITY, SAMPLE-COMPOSITION result.json", "builder": "build_tables.py::build_macros", "tex_fragment": "papers/study_05/manuscript/estimates.tex"}
+  ],
+  "in_text_macros": {"file": "papers/study_05/manuscript/estimates.tex", "generated_by": "code/study_05_crosscountry/tables/build_tables.py", "count": 59, "examples": ["MOneBeta = 3.617", "MTwoBetaThree = -1.975", "MDEpp = 1.33", "CtrlxModBeta = -1.545", "WithinRtwoBase/Full = 0.0481/0.0491", "DBIntBeta = -1.955", "VnmSlope = 5.07", "ThinShareN = 23,458", "RawRateNoDig/Dig = 3.78/14.13", "RawGap = 10.3", "RegionSSA..RegionHIC = 34/17/16/10/9/5/6"]},
+  "hard_coded_numbers_found": [],
+  "hard_coded_numbers_resolved_this_revision": [
+    "Vietnam fitted-slope 95% CI: persisted via code/study_05_crosscountry/m7_vietnam_ci.py -> results/stage3/CLAUDE-S5R-M7-VNM-CI-20260910-001/result.json (delta method on the Stage-4 cold M2 fit; point estimate reproduces the Stage-2 value to |diff| 9e-14; CI [3.874, 6.270] pp). Now \\VnmSlopeCIlo/\\VnmSlopeCIhi macros.",
+    "Raw no-digital / digital borrowing rates and the unadjusted gap: macro-ised (RawRateNoDig 3.78, RawRateDig 14.13, RawGap 10.3 -- the pipeline corrected the draft's '10.4').",
+    "Seven World Bank region economy counts: macro-ised (RegionSSA..RegionHIC = 34/17/16/10/9/5/6)."
+  ],
+  "figures": [
+    {"figure": "Figure 1 (fig:country_gap)", "file": "manuscript/figures/F1_country_gap.png", "source": "results/stage2/CODEX-S5-EXP-20260909-002/figures/F1_country_gap.png", "placed": "Section 3.4"},
+    {"figure": "Figure 2 (fig:loo)", "file": "manuscript/figures/F2_leave_one_out.png", "source": "results/stage2/CODEX-S5-EXP-20260909-002/figures/F2_leave_one_out.png", "placed": "Section 5.3"},
+    {"figure": "Figure 3 (fig:implied)", "file": "manuscript/figures/F3_implied_association.png", "source": "results/stage2/CODEX-S5-EXP-20260909-002/figures/F3_implied_association.png", "placed": "Section 6"}
+  ],
+  "residual_limitations_preserved": {
+    "location": "body.tex, Section 7, itemised list 'Residual limitations that must survive typesetting'",
+    "count": 8,
+    "verbatim_from": "audit/CODEX_S5_INDEPENDENT_ADVERSARIAL_REVIEW_2026-09-10.md",
+    "check": "All eight bullets reproduced verbatim; the additional design-level caveats (account_fin collider, private-credit vintages, verified-reconstructed provenance) follow. No limitation was shortened into a stronger claim."
+  },
+  "build": {
+    "command": "latexmk -pdf papers/study_05/manuscript/main.tex",
+    "engine": "pdflatex (MiKTeX) + bibtex",
+    "undefined_refs": 0,
+    "overfull_hbox": 0,
+    "unresolved_citations": 0,
+    "pages": 15,
+    "output": "papers/study_05/manuscript/main.pdf (513 KB)",
+    "status": "PASS",
+    "reproducible_from_clean": "verified (latexmk -C then 4x rebuild -> 15-page PDF; 0 undefined refs/citations; 0 overfull hbox above 2pt; residual <2pt lines absorbed by \\sloppy)"
+  },
+  "publisher_format_claims": [
+    {"claim": "This is the UEH student-competition format", "verified_against": "UNVERIFIED -- no template on file; class is GENERIC_NOT_VERIFIED pending the owner's UEH .cls / format rules"}
+  ],
+  "language": "English only (per owner decision 2026-09-10)",
+  "author_line": "Named: Nguyen Tran, University of Economics Ho Chi Minh City (per owner decision)",
+  "length_constraint": "none stated (per owner decision); full v2 content + Tables 1-6 typeset, nothing cut",
+  "open_items_for_final_build": [
+    "Swap the article preamble in main.tex for the official UEH template when supplied (body.tex unchanged; also map the metadata/title-page and re-run the build + a citation/reference audit + a limitations-not-shortened check). Owner said 2026-09-10 to proceed without a template for now.",
+    "All in-text numbers are now macro-generated; hard_coded_numbers_found is empty."
+  ],
+  "registered_by": "claude",
+  "registered_at": "2026-09-10T19:30:00Z"
+}

@@ -1,0 +1,54 @@
+%==============================================================================
+% Study 5 — "Digital Payments and Formal Borrowing Across 97 Economies"
+% Prepared for the UEH student scientific-research competition.
+%
+% DOCUMENT CLASS: GENERIC_NOT_VERIFIED.
+%   No official UEH competition template was on file when this was assembled.
+%   This uses a neutral `article` setup. When the official UEH template/.cls
+%   arrives, replace the preamble below and keep \input{body}; the body carries
+%   no class-specific commands.
+%
+% REPRODUCIBLE PIPELINE (no coefficient is typed into a .tex by hand):
+%   results/stage2 + results/stage3   (immutable analysis outputs)
+%     -> code/study_05_crosscountry/tables/build_tables.py
+%     -> manuscript/tables/*.tex   and   manuscript/estimates.tex
+%     -> \input here.
+%   Rebuild:  python code/study_05_crosscountry/tables/build_tables.py
+%==============================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}          % proper hyphenation / glyphs
+\usepackage[utf8]{inputenc}       % UTF-8 source
+\usepackage[margin=1in]{geometry} % neutral margins (replace under UEH template)
+\usepackage{amsmath}              % aligned display equations (M1/M2)
+\usepackage{booktabs}             % professional rules in the generated tables
+\usepackage{graphicx}             % figures (F1--F3)
+\usepackage{adjustbox}            % shrink a wide table to the text block only when needed
+\usepackage{setspace}             % 1.5 spacing for a readable review copy
+\usepackage[round,authoryear]{natbib} % author-year citations
+\usepackage[hidelinks]{hyperref}  % loaded last
+
+\onehalfspacing
+\graphicspath{{figures/}}
+\bibliographystyle{apalike}
+\Urlmuskip=0mu plus 1mu\relax   % let \url break more freely
+\sloppy                         % prefer loose interword space over overfull lines
+
+\newcommand{\lowcovz}{\texttt{lowcov2019\_z}}
+
+\title{Digital Payments and Formal Borrowing Across 97 Economies:\\
+A Pre-registered Test of the Credit-Information-Substitution Hypothesis}
+\author{Nguyen Tran\\ \small University of Economics Ho Chi Minh City}
+\date{Draft --- \today}
+
+\input{estimates} % generated in-text statistics (\MOneBeta, \MTwoBetaThree, ...)
+
+\begin{document}
+\maketitle
+
+\input{body}
+
+\clearpage
+\bibliography{references}
+
+\end{document}

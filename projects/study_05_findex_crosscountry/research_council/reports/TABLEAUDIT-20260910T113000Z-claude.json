@@ -1,0 +1,86 @@
+{
+  "id": "TABLEAUDIT-20260910T113000Z",
+  "study_id": "study_05_findex_crosscountry",
+  "manuscript": "papers/study_05/MANUSCRIPT_DRAFT_v2.md",
+  "supersedes_for_scope": "TABLEAUDIT-20260910T045000Z (re-audit of numbers added after that pass: C1 MDE, C5 control x moderator, C6 CHN/SAU sensitivity, C8 within-R2, Klapper 2025 citation, and all 'reproduced'/'post-registration'/'not identified' language)",
+  "hypothesis": "H-000500",
+  "artifacts_checked": [
+    {"artifact": "S5.3 C5 control x moderator paragraph", "source_output": "results/stage4_repro/CLAUDE-S5R-CTRLXMOD-20260910-001/result.json; results/stage3/CODEX-S5-CTRLXMOD-REPRO-20260910-001/result.json; audit/CODEX_S5_CTRLXMOD_REPRODUCTION.md; audit/CLAUDE_S5_CTRLXMOD_CHECK.md", "stale": false},
+    {"artifact": "S5.3 within-R2 comparison (C8)", "source_output": "results/stage2/CODEX-S5-EXP-20260909-002/interaction_grid.csv (M2 within_r2); NO source for the expanded-model value", "stale": false},
+    {"artifact": "S5.3 MDE paragraph (C1)", "source_output": "derived from results/stage2/CODEX-S5-TABLES-20260909-001/T3_primary_moderation.csv (M2 b3 SE and CI)", "stale": false},
+    {"artifact": "Table 2 CHN/SAU row + S5.5 (C6)", "source_output": "results/stage3/CODEX-S5-DB-INTEGRITY-20260910-001/result.json; results/stage4_repro/CLAUDE-S5R-DB-INTEGRITY-20260910-001/result.json; audit/CLAUDE_S5_DB_INTEGRITY_REPRODUCTION.md", "stale": false},
+    {"artifact": "References - Klapper et al. (2025), Alok et al. (2024), Cornelli et al. (2023), Galilea et al. (2026)", "source_output": "research_council/literature/novelty_audit/LIT-20260910T053000Z-claude.json", "stale": false}
+  ],
+  "value_checks": [
+    {"location": "S5.3 (C5)", "field": "control x moderator b3", "reported": "-1.545 pp/SD", "source": "-0.015447027214019 (CLAUDE-S5R-CTRLXMOD) / -0.015447027213726 (CODEX-S5-CTRLXMOD-REPRO)", "status": "MATCH"},
+    {"location": "S5.3 (C5)", "field": "control x moderator cluster SE", "reported": "0.451 pp", "source": "0.00451376 (Claude) / 0.00451378 (Codex); both round to 0.451", "status": "MATCH"},
+    {"location": "S5.3 (C5)", "field": "control x moderator p", "reported": "approx 9e-4", "source": "0.0009143 (both implementations)", "status": "MATCH"},
+    {"location": "S5.3 (C5)", "field": "control x moderator 95% CI", "reported": "-2.44 to -0.65", "source": "[-0.024407, -0.006487] (both implementations)", "status": "MATCH"},
+    {"location": "S5.3 (C5)", "field": "'about a fifth of the baseline magnitude is compositional'", "reported": "~1/5", "source": "(1.975 - 1.545) / 1.975 = 21.8%", "status": "MATCH"},
+    {"location": "S5.3 (C5)", "field": "'reproduces this result within numerical tolerance' + run id", "reported": "CODEX-S5-CTRLXMOD-REPRO-20260910-001", "source": "audit/CODEX_S5_CTRLXMOD_REPRODUCTION.md verdict PASS_INDEPENDENT_REPRODUCTION; coefficient |delta| 2.9e-13, SE |delta| 2.2e-8", "status": "MATCH"},
+    {"location": "S5.3 (C8)", "field": "within-R2 baseline M2", "reported": "0.0481", "source": "0.048144861463442 (interaction_grid.csv row M2; result.json within_r2)", "status": "MATCH"},
+    {"location": "S5.3 (C8)", "field": "within-R2 M2 + control x moderator (expanded)", "reported": "0.0491", "source": "NOT PRESENT in any result file. CLAUDE-S5R-CTRLXMOD result.json and CODEX-S5-CTRLXMOD-REPRO result.json both omit within_r2; reproduce_ctrlxmod_codex.py line 30-31 extracts only the coefficient dict.", "status": "UNTRACED"},
+    {"location": "S5.3 (C1)", "field": "80%-power minimum detectable interaction", "reported": "approx 1.33 pp/SD", "source": "derived: (Phi^-1(0.975) + Phi^-1(0.80)) x SE = (1.95996 + 0.84162) x 0.004742983 = 0.013289 -> 1.33 pp", "status": "MATCH_DERIVED"},
+    {"location": "S5.3 (C1)", "field": "'baseline 95% interval entirely negative [-2.92, -1.03 pp]'", "reported": "-2.92 to -1.03", "source": "T3 M2 anydigpayment:lowcov2019_z ci95 [-0.02916292, -0.01033343]", "status": "MATCH"},
+    {"location": "Table 2 (C6) / S5.5", "field": "CHN/SAU drop b3, p, N, G, 'independently reproduced', '5e-14'", "reported": "-1.955; p ~ 0.00010; 95,909; 95; independently reproduced to 5e-14", "source": "CODEX-S5-DB-INTEGRITY result.json (-0.019548386, p 0.00010324, N 95909, G 95); CLAUDE-S5R-DB-INTEGRITY result.json abs_diff estimate 5.19e-14", "status": "MATCH"},
+    {"location": "References", "field": "Klapper et al. (2025) authors + DOI", "reported": "Klapper, Singer, Starita, Norris; DOI 10.1596/978-1-4648-2204-9", "source": "LIT-20260910T053000Z: authors Klapper/Singer/Starita/Norris; ISBN 9781464822049 == DOI suffix 978-1-4648-2204-9", "status": "MATCH", "note": "confirm the DOI resolves before submission"},
+    {"location": "References", "field": "Galilea et al. (2026)", "reported": "Galilea, M., Farazi, S., Mare, D. S.; World Bank PRWP 11287", "source": "LIT-20260910T053000Z (PRWP 11287, Manuel Galilea)", "status": "MATCH"},
+    {"location": "References", "field": "Alok et al. (2024) title", "reported": "'Open Banking and Digital Payments: Implications for Credit Access. NBER Working Paper 33259.'", "source": "LIT-20260910T053000Z records NBER 33259 with the registered title 'Breaking Barriers to Financial Access: Cross-Platform Digital Payments and Credit Markets'; a public write-up used the 'Open Banking...' title", "status": "TITLE_TO_VERIFY", "note": "WP number and authors correct; confirm the current NBER title"},
+    {"location": "References", "field": "Cornelli et al. (2023)", "reported": "Journal of Banking & Finance (no volume/pages)", "source": "LIT-20260910T053000Z (JBF; BIS WP 887, 2020)", "status": "INCOMPLETE_CITATION"},
+    {"location": "S1 / S2", "field": "'a majority of adults ... make or receive at least one digital payment' now cited to Klapper et al. (2025)", "reported": "cited to 2025 report", "source": "LIT-20260910T053000Z: Findex 2025 reports 62% of LMIC adults made/received a digital payment in 2024", "status": "MATCH"}
+  ],
+  "derived_checks": [
+    {"location": "S5.3 (C5)", "check": "t = b3/SE for expanded model", "recomputed_t": -3.422, "reported_t_source": "-3.42221 (CLAUDE) / -3.42219 (CODEX)", "status": "MATCH"},
+    {"location": "S5.3 (C1)", "check": "MDE formula (z_.975 + z_.80) x SE", "recomputed": 0.013289, "reported": "1.33 pp", "status": "MATCH"},
+    {"location": "S5.3 (C8)", "check": "expanded within-R2 plausibility", "note": "adding 10 interaction terms to a 100,560-obs model with baseline within-R2 0.0481; +0.0010 is plausible but the value is not persisted", "status": "PLAUSIBLE_BUT_UNTRACED"}
+  ],
+  "n_ladder": [
+    {"spec": "M2 baseline / MDE reference", "N": 100560, "G": 97, "reason_ok": true},
+    {"spec": "C5 M2 + control x moderator", "N": 100560, "G": 97, "reason_ok": true, "note": "same frame as M2; only regressors added"},
+    {"spec": "C6 drop CHN + SAU", "N": 95909, "G": 95, "reason_stated": "S3.2 integrity sensitivity", "reason_ok": true}
+  ],
+  "sign_checks": [
+    {"coefficient": "anydigpayment x lowcov2019_z under C5 expanded controls", "observed": "-0.015447 (negative, significant p=9e-4)", "vs_baseline": "-0.019748", "flip": false, "ok": true, "note": "attenuated ~22%, sign and significance retained"},
+    {"coefficient": "anydigpayment x lowcov2019_z under C6 (drop CHN/SAU)", "observed": "-0.019548 (negative, p=1e-4)", "flip": false, "ok": true}
+  ],
+  "label_issues": [
+    "S5.3 credits the C5 reproduction to CODEX-S5-CTRLXMOD-REPRO-20260910-001 but does not name the prior independent implementation CLAUDE-S5R-CTRLXMOD-20260910-001 that Codex reproduced. Not wrong, but S5.5 / the reproducibility statement name both run ids for the primary and CHN/SAU checks and should do the same here.",
+    "Status note (line 17) lists 'C1, C2, C4, C5, C6, C8, C9, C13 and C14 are addressed' -- omits C11 (addressed via the S7 'Policy boundary' paragraph) and partly duplicates line 15."
+  ],
+  "stale_artifacts": [],
+  "discrepancies": [
+    {"id": "D1", "severity": "MAJOR", "location": "S5.3: 'The within-R2 rises only from 0.0481 to 0.0491'", "reported": "0.0491 (expanded model)", "source": "no result file contains it: CLAUDE-S5R-CTRLXMOD-20260910-001/result.json and CODEX-S5-CTRLXMOD-REPRO-20260910-001/result.json both omit within_r2; reproduce_ctrlxmod_codex.py discards the second return of fit_lpm and extracts only the coefficient", "action": "Re-run one C5 script (e.g. reproduce_ctrlxmod_codex.py) persisting within_r2 for BOTH the baseline and the expanded model using the same definition as interaction_grid.csv, then cite that file; or replace the specific '0.0491' with 'essentially unchanged' if the exact value will not be persisted. The baseline 0.0481 is fine (traces to interaction_grid.csv).", "changes_a_result_or_verdict": false},
+    {"id": "D2", "severity": "MINOR", "location": "References - Alok, Ghosh, Kulkarni and Puri (2024)", "reported": "title 'Open Banking and Digital Payments: Implications for Credit Access'", "source": "NBER WP 33259 registered title is 'Breaking Barriers to Financial Access: Cross-Platform Digital Payments and Credit Markets'; the 'Open Banking...' phrasing appears only in a secondary write-up", "action": "Verify the current NBER WP 33259 title on nber.org and use it; number (33259) and author list are correct.", "changes_a_result_or_verdict": false},
+    {"id": "D3", "severity": "MINOR", "location": "References - Cornelli et al. (2023)", "reported": "Journal of Banking & Finance (no volume, issue, pages or DOI)", "source": "ScienceDirect S0378426622003223", "action": "Add volume/pages/DOI before submission.", "changes_a_result_or_verdict": false},
+    {"id": "D4", "severity": "MINOR", "location": "Status note, line 17", "reported": "'C1, C2, C4, C5, C6, C8, C9, C13 and C14 are addressed'", "source": "C11 is also addressed (S7 'Policy boundary'); line 15 already lists C5/C6/C9/C13", "action": "Merge into one sentence and include C11, or drop the second enumeration.", "changes_a_result_or_verdict": false},
+    {"id": "D5", "severity": "MINOR", "location": "References - Klapper et al. (2025) DOI", "reported": "https://doi.org/10.1596/978-1-4648-2204-9", "source": "digit-consistent with ISBN 9781464822049 from LIT-20260910T053000Z; not independently resolved in this audit", "action": "Confirm the DOI resolves to the report landing page before submission.", "changes_a_result_or_verdict": false}
+  ],
+  "checks_that_passed": [
+    "C5 control x moderator: b3 = -1.545 pp/SD, SE 0.451, p ~ 9e-4, CI [-2.44, -0.65], N 100,560, G 97 -- all trace to CLAUDE-S5R-CTRLXMOD and CODEX-S5-CTRLXMOD-REPRO (dual implementation; coefficient |delta| 2.9e-13).",
+    "C5 '~a fifth compositional' = 21.8%, arithmetic-consistent with -1.975 -> -1.545.",
+    "C5 'reproduces within numerical tolerance' backed by audit/CODEX_S5_CTRLXMOD_REPRODUCTION.md (verdict PASS_INDEPENDENT_REPRODUCTION).",
+    "C6 CHN/SAU row: -1.955, p ~ 0.00010, 95,909 / 95, 'independently reproduced' -- traces to CODEX-S5-DB-INTEGRITY + CLAUDE-S5R-DB-INTEGRITY (|delta| 5.2e-14); S5.5 '5 x 10^-14' matches.",
+    "C1 MDE 1.33 pp/SD -- correct application of (z_.975 + z_.80) x clustered SE to the reported M2 b3 SE; CI [-2.92, -1.03] matches T3.",
+    "C1 hedge 'model-based precision statement, not evidence that the true structural effect is negative' -- appropriate for the FLAWED identification verdict.",
+    "C4: S7 account-access paragraph and S8 now say the channel is 'not identified' / 'a hypothesis for future data' -- consistent with the ledger and CLAIM_CONTRACT.",
+    "Klapper et al. (2025): author list and DOI digits consistent with LIT-20260910T053000Z; the 2024-wave 'majority' fact is now cited to the 2025 report.",
+    "Galilea et al. (2026): corrected to M. Galilea, World Bank PRWP 11287.",
+    "Carried-forward statistics (M1 3.617/SE 0.514; M2 b3 -1.975/SE 0.474; M2b -3.958; M3a 5.172/4.080; M3b -0.269/-2.021; M4 informal +1.736, BH q 0.010; Table 2 rows 1-13; Vietnam +5.07) -- unchanged since TABLEAUDIT-20260910T045000Z, still consistent with their source files.",
+    "N ladder: C5 keeps the 100,560/97 frame (regressors added only); C6 95,909/95 has a stated reason.",
+    "Sign checks: b3 stays negative and significant under both C5 (expanded controls) and C6 (drop CHN/SAU)."
+  ],
+  "overall_status": "DISCREPANCIES_FOUND",
+  "summary": "The numbers added since the last audit are sound with one exception. C5 (control x moderator, b3 = -1.545, dual-implementation), C6 (CHN/SAU drop, -1.955, independently reproduced), the C1 MDE (1.33 pp/SD, correctly derived) and the Klapper/Galilea citation fixes all trace to source. The one MAJOR item (D1) is a persistence gap, not a wrong value: the C8 within-R2 for the expanded model ('0.0491') is not written to any result file -- the C5 scripts emit only the coefficient. Regenerate with within_r2 persisted, or soften the claim. Four MINOR items: one uncertain citation title (Alok et al.), one incomplete citation (Cornelli et al.), a DOI to confirm, and a redundant status-note enumeration. No result or claim-contract verdict is affected. No manuscript number was altered by this audit.",
+  "gate_recommendation": "Fix D1 (persist or soften the within-R2), then proceed to the second peer-reviewer-simulation-q1 pass. D2-D5 can be cleared in the same revision or at the citation-verification step; none blocks the referee pass.",
+  "resolution_log": [
+    {"id": "D1", "resolved_at": "2026-09-10T11:40:00Z", "status": "RESOLVED",
+     "how": "Regeneration action executed. code/study_05_crosscountry/ctrlxmod_within_r2.py re-runs the baseline M2 and the M2 + control x lowcov2019_z model through estimate_stage2_codex.fit_lpm (same estimator and same within-R2 definition that produced interaction_grid.csv) and persists both values to results/stage3/CLAUDE-S5R-CTRLXMOD-WR2-20260910-001/result.json.",
+     "finding": "within_r2_baseline_M2 = 0.048144861463441546 -- EXACT match to interaction_grid.csv row M2 (baseline_matches_interaction_grid: true). within_r2_with_control_by_moderator = 0.04907537195533007, which rounds to 0.0491. The manuscript value was correct; it now has a source file.",
+     "manuscript_change": "S5.3 within-R2 sentence: added citation '(`CLAUDE-S5R-CTRLXMOD-WR2-20260910-001`; the baseline value matches the frozen Stage-2 run exactly)'. No reported number changed.",
+     "value_check_D1_now": "TRACED (results/stage3/CLAUDE-S5R-CTRLXMOD-WR2-20260910-001/result.json)."},
+    {"id": "D4", "resolved_at": "2026-09-10T11:40:00Z", "status": "OPEN", "note": "status-note tidy deferred to the same revision as D2/D3/D5 citation fixes; cosmetic, does not block the referee pass."}
+  ],
+  "post_resolution_status": "D1 RESOLVED (within-R2 0.0481 -> 0.0491 now persisted and baseline exact-matches the frozen run). D2, D3, D4, D5 remain MINOR and non-blocking; clear them at the citation-verification step. Audit gate for step 2 (second peer-reviewer-simulation-q1) is now clear.",
+  "registered_by": "claude",
+  "registered_at": "2026-09-10T11:30:00Z"
+}

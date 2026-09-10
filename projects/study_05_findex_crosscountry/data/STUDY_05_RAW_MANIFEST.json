@@ -1,0 +1,106 @@
+{
+  "manifest_id": "S5-RAW-20260909",
+  "study_id": "study_05_findex_crosscountry",
+  "created_at": "2026-09-09",
+  "created_by": "claude",
+  "purpose": "immutable inventory of candidate raw inputs for Study 5; not an evidence-admission receipt",
+  "causal_claim_permitted": false,
+  "shared_with_studies_1_2_3_4": false,
+  "note_on_study_01": "the same Findex microdata file underlies study_01_rebuild (Vietnam subset only). Shared source does NOT license reuse of Study 1's sample, estimates, or tables. Study 5 uses the full 140-economy release.",
+  "artifacts": [
+    {
+      "logical_name": "findex_micro_2025_global",
+      "path": "data/raw/data_micro_findex_2024_vietnam.xlsx",
+      "sha256": "ca307a0c3dfd54dc945a18fb03c58b014143bc21c90761f71fe304e6a2f90fce",
+      "size_bytes": 44519418,
+      "hash_cross_check": "matches research_council/data_audit/raw_data_hashes.json and research_council/data_audit/manifests/S1-FINDEX-MICRO-2025-V02.json",
+      "source_name": "World Bank Global Findex Database 2025 microdata (2024 wave)",
+      "source_url": "https://microdata.worldbank.org/catalog/7860",
+      "doi": "https://doi.org/10.48529/bk9n-8r43",
+      "reference_id": "WLD_2024_FINDEX_v02_M",
+      "license": "World Bank Microdata Library dataset-use and citation conditions",
+      "sheet": "findex_microdata_2025_labelled_",
+      "shape": "144090 rows x 199 cols",
+      "unit_of_observation": "individual respondent age 15+",
+      "time_coverage": "2024 wave only (single cross-section); collection window 2024-05 to 2024-12",
+      "entity_coverage": "140 economies; per-economy n 500-4020 (median 1000); Viet Nam / VNM = 1000",
+      "provenance_status": "VERIFIED_RECONSTRUCTED",
+      "provenance_limitation": "release identified from DDI/codebook; original download receipt not preserved (inherited from Study 1)",
+      "documentation": [
+        "data/external/GlobalFindex2025_DDI.xml",
+        "data/external/GlobalFindex2025_Microdata_Codebook.pdf",
+        "data/external/GlobalFindex2025_catalog_metadata.json"
+      ],
+      "key_variables": {
+        "outcome_primary": "fin22a (Borrowed from a formal bank or similar financial institution; 1 Yes / 2 No / 3 DK / 4 Refused; non-null 102954, yes 10457)",
+        "exposure_primary": "anydigpayment (Made or received a digital payment; 1/0; non-null 102954, yes 57753)",
+        "exposure_splits": "receive_wages / receive_transfers / receive_pensions / receive_agriculture (1 = into an account); merchantpay_dig / pay_utilities (making)",
+        "controls": "account_fin, female, age, educ (1-3), inc_q (1-5), urbanicity, internet_use, emp_in",
+        "secondary_outcomes": "fin20 (applied for a loan using a mobile phone); fin24 (main emergency-money source, 4 = loan from FI/employer/private lender)",
+        "contrast_outcome": "fin22b (borrowed from friends or family)",
+        "survey_design": "wgt (weight); wpid_random (respondent id); NO psu/strata released; cluster SEs by economy",
+        "geo": "economy, economycode (ISO3), regionwb"
+      },
+      "structural_coverage_note": "fin22a / anydigpayment / dig_account / borrowed / saved / merchantpay_dig each have exactly 102954 non-null (41136 missing), concentrated in economies administered a reduced questionnaire. Of the 102954 non-missing fin22a rows, 102644 are valid 1/2 responses across 98 module economies; 310 DK/refused rows are excluded. The REVISION 1 primary population is module-administered economies with complete primary covariates, not a developing/emerging-only population."
+    },
+    {
+      "logical_name": "country_credit_information_moderator",
+      "status": "ACQUIRED 2026-09-09 by claude via World Bank API v2 (curl) - pending Codex verification",
+      "role": "country-level moderator: strength/weakness of credit-information systems",
+      "source": "World Bank API v2, source=1 (Doing Business indicators; database archived, API lastupdated 2021-08-18). Endpoint pattern: https://api.worldbank.org/v2/country/all/indicator/<ID>?source=1&format=json&per_page=20000",
+      "indicators_fetched": {
+        "depth_credit_info_0_8": "IC.CRED.ACC.DPTH.CISI.XD.08.DB1519 (Getting credit: Depth of credit information index 0-8, DB15-20 methodology)",
+        "credit_bureau_cov_pct": "IC.CRED.ACC.PRVT.CRD.ZS (Getting credit: Credit bureau coverage, % of adults)",
+        "credit_registry_cov_pct": "IC.CRED.ACC.PUBL.CRD.REG.COVR.ZS (Getting credit: Credit registry coverage, % of adults)",
+        "legal_rights_0_12": "IC.CRED.ACC.LGL.RGHT.XD.012.DB1519 (Getting credit: Strength of legal rights index 0-12, DB15-20 methodology)"
+      },
+      "files": [
+        {"path": "data/raw/wb_credit_information_by_country_year.csv", "sha256": "2d7c9a27efb59ff7bbcb894f3c0ecb51782dd8b1076c347868aae047fe3d6288", "rows": 3604, "note": "long table iso3 x year 2003-2019 (0-8 depth index available from 2013)"},
+        {"path": "data/raw/wb_credit_information_latest_snapshot.csv", "sha256": "ef0c67f9c7d44b67939e088f0aab2e578f7ba0d7f2eeadc4093c0103cc1bd06c", "rows": 190, "note": "latest non-missing value per iso3; uniformly the 2019 observation (Doing Business 2020 release)"},
+        {"path": "data/raw/wb_api_json/wb_IC.CRED.ACC.DPTH.CISI.XD.08.DB1519.json", "sha256": "c30f04aad2593eb4b3e96024bbf048f8bbabf517bc49323abd797afeb0bd045e"},
+        {"path": "data/raw/wb_api_json/wb_IC.CRED.ACC.LGL.RGHT.XD.012.DB1519.json", "sha256": "769096e7ed01a04f9262f0daaacddb168975a7e89d61b388e8fc50d78639163a"},
+        {"path": "data/raw/wb_api_json/wb_IC.CRED.ACC.PRVT.CRD.ZS.json", "sha256": "3797903d1b5aa44906d9c8ad10e205a3b48ca2341b7ae5e503011eae1cdb6c53"},
+        {"path": "data/raw/wb_api_json/wb_IC.CRED.ACC.PUBL.CRD.REG.COVR.ZS.json", "sha256": "874040fb7c10f3d33b33d219261ce54d61f349162d8d513883e3f3704c936b3c"}
+      ],
+      "vintage": "2019 snapshot for all four indicators (Doing Business 2020, data as of ~May 2019). This is a PRE-2024 moderator against the 2024 Findex outcome - defensible because credit infrastructure is slow-moving; must be disclosed.",
+      "coverage": "190 countries in snapshot; 98/98 Findex economies with valid fin22a 1/2 responses matched by ISO3 = 100% merge, 0 unmatched before primary-covariate filtering; 102644 valid individuals at that stage",
+      "moderator_variation_among_98_matched": {
+        "depth_credit_info_0_8": "14 economies at 0; then 2/4/5/6; mass at 7-8 (61 of 98) - somewhat ceiling-compressed",
+        "credit_bureau_cov_pct": "min 0, median 19.4, max 100",
+        "credit_registry_cov_pct": "min 0, median 2.0, max 100",
+        "any_coverage_max_bureau_registry": "min 0, median 40.3, max 100; 24 economies <10%, 38 economies <25% - good spread; PROPOSED PRIMARY MODERATOR"
+      },
+      "vietnam_2019": {"depth_credit_info_0_8": 8, "credit_bureau_cov_pct": 20.6, "credit_registry_cov_pct": 59.4, "legal_rights_0_12": 8},
+      "merge_key": "Findex economycode (ISO3) to WB iso3 - exact, 100% match",
+      "pending": "Codex to verify indicator IDs, values for a sample of countries, the archived-database provenance, and the pre-2024 vintage decision"
+    },
+    {
+      "logical_name": "wdi_gdp_per_capita_control",
+      "status": "ACQUIRED_AND_CODEX_VERIFIED_2026-09-09",
+      "role": "registered M6.5 country-level macro control; log GDP per capita",
+      "path": "data/raw/wdi_NY.GDP.PCAP.CD_2000_2023.json",
+      "sha256": "e7921b98db185e568c7d07dd5c094eb3dbf8e56ca11ba08a15f6d9abe34dcacd",
+      "source": "World Bank World Development Indicators API v2, source=2",
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?source=2&date=2000:2023&format=json&per_page=20000",
+      "indicator": "NY.GDP.PCAP.CD — GDP per capita (current US$)",
+      "api_metadata": {"sourceid": "2", "lastupdated": "2026-07-13", "records": 6360},
+      "vintage_rule": "latest non-missing observation no later than 2023, fixed before estimation",
+      "primary_sample_coverage": "97/97 economies; all latest observations are 2023",
+      "use_restriction": "robustness M6.5 only; not a primary control"
+    },
+    {
+      "logical_name": "wdi_private_credit_control",
+      "status": "ACQUIRED_AND_CODEX_VERIFIED_2026-09-09",
+      "role": "registered M6.5 country-level macro control; domestic credit to private sector",
+      "path": "data/raw/wdi_FS.AST.PRVT.GD.ZS_2000_2023.json",
+      "sha256": "ad301883321da15e2cfcf6a0fefb569565d8efc7c77f1ba5ee3ae540c77dc953",
+      "source": "World Bank World Development Indicators API v2, source=2",
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/FS.AST.PRVT.GD.ZS?source=2&date=2000:2023&format=json&per_page=20000",
+      "indicator": "FS.AST.PRVT.GD.ZS — Domestic credit to private sector (% of GDP)",
+      "api_metadata": {"sourceid": "2", "lastupdated": "2026-07-13", "records": 6360},
+      "vintage_rule": "latest non-missing observation no later than 2023, fixed before estimation",
+      "primary_sample_coverage": "97/97 economies; latest-observation years range from 2008 to 2023 and must be retained in the Stage 1 country-control table",
+      "use_restriction": "robustness M6.5 only; not a primary control"
+    }
+  ]
+}
