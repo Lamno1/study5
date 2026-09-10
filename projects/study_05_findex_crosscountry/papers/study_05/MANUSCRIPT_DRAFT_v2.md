@@ -1,7 +1,7 @@
 # Digital Payments and Formal Borrowing Across 97 Economies: A Pre-registered Test of the Credit-Information-Substitution Hypothesis
 
 **Draft v2 — 2026-09-10.** Prepared for the UEH student scientific-research competition.
-Author: Nguyen Tran (University of Economics Ho Chi Minh City).
+Author: Nguyen Van Thong (University of Economics Ho Chi Minh City).
 
 > **Status.** All empirical results are from the frozen pre-registration `EXP-S5-001`
 > (`PREREGISTRATION.md`), estimated by Codex (`CODEX-S5-EXP-20260909-002`) and independently
